@@ -1,15 +1,30 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectAllBlogs } from "../../redux/reducers/blogs/blogsSlice";
+import {
+  fetchBlogs,
+  selectAllBlogs,
+} from "../../redux/reducers/blogs/blogsSlice";
 import ShowTime from "../ShowTime/ShowTime";
 import ShowAuthor from "../ShowAuthor/ShowAuthor";
 import ReactionButtons from "../ReactionButtons/ReactionButtons";
+import { useEffect } from "react";
 
 const Blogs = () => {
+  const dispatch = useDispatch();
   const blogs = useSelector(selectAllBlogs);
+  const blogsStatus = useSelector((state) => state.blogs.status);
+
+  useEffect(() => {
+    console.log(blogsStatus)
+    if (blogsStatus === "idle") {
+      dispatch(fetchBlogs());
+    }
+  }, [blogsStatus, dispatch]);
 
   // Sort blogs by date in descending order
-  const orderedBlogs = blogs.slice().sort((a, b) => b.date.localeCompare(a.date));
+  const orderedBlogs = blogs
+    .slice()
+    .sort((a, b) => b.date.localeCompare(a.date));
 
   const renderedBlogs = orderedBlogs.map((blog, idx) => {
     return (

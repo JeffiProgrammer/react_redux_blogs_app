@@ -1,17 +1,46 @@
 {
-  "blogs": [],
+  "blogs": [
+    {
+      "id": "TVIB9M0-wPjdwGcNabq1Z",
+      "date": "2024-08-18T19:45:09.400Z",
+      "title": "My First Blog post ❤️",
+      "content": "This is the content of my first blog post.😘",
+      "userId": "A7uTjfMaFmtQliMDZMQyU",
+      "reaction": {
+        "thumbsUp": 0,
+        "hooray": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      }
+    },
+    {
+      "id": "k6nqr_2-1Fpptbf-CuT5J",
+      "date": "2024-08-27T19:50:09.400Z",
+      "title": "My Second Blog post 💕",
+      "content": "This is the content of my Second blog post. 🤖",
+      "userId": "xToAtCaZq2-sHu73VH09w",
+      "reaction": {
+        "thumbsUp": 0,
+        "hooray": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      }
+    }
+  ],
   "users": [
     {
-      "id":"A7uTjfMaFmtQliMDZMQyU",
-      "fullname":"Masoud Ranjbaran"
+      "id": "A7uTjfMaFmtQliMDZMQyU",
+      "fullname": "Masoud Ranjbaran"
     },
     {
-      "id":"xToAtCaZq2-sHu73VH09w",
-      "fullname":"Zeinab Ranjbaran"
+      "id": "xToAtCaZq2-sHu73VH09w",
+      "fullname": "Zeinab Ranjbaran"
     },
     {
-      "id":"Wi5WUVUuNjwQVNpNxc5o1",
-      "fullname":"Mohammad Ranjbaran"
+      "id": "Wi5WUVUuNjwQVNpNxc5o1",
+      "fullname": "Mohammad Ranjbaran"
     }
   ]
 }
