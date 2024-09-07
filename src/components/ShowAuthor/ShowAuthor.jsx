@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { selectUserById } from "../../redux/reducers/users/usersSlice";
 
 const ShowAuthor = ({ userId }) => {
-  const user = useSelector((state) =>
-    state.users.users.find((user) => user.id === userId)
-  );
+  const user = useSelector((state) => selectUserById(state, userId));
 
   return <span>{user ? `by: ${user.fullname}` : "by: Unknown User"}</span>;
 };

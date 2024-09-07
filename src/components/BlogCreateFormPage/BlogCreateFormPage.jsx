@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { blogAdded } from "../../redux/reducers/blogs/blogsSlice";
+import { selectAllUsers } from "../../redux/reducers/users/usersSlice";
 
 const BlogCreateFormPage = () => {
   const [title, setTitle] = useState("");
@@ -11,7 +12,7 @@ const BlogCreateFormPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const users = useSelector((state) => state.users.users);
+  const users = useSelector(selectAllUsers)
 
   // Handle form change envents
   const handleTitleChange = (e) => {

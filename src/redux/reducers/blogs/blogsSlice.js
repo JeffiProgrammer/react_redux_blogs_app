@@ -8,7 +8,7 @@ const initialState = {
       date: sub(new Date(), { days: 20, minutes: 10 }).toISOString(),
       title: "My First Blog post ❤️",
       content: "This is the content of my first blog post.😘",
-      userId: "1",
+      userId: "A7uTjfMaFmtQliMDZMQyU",
       reaction: {
         thumbsUp: 0,
         hooray: 0,
@@ -22,7 +22,7 @@ const initialState = {
       date: sub(new Date(), { days: 11, minutes: 5 }).toISOString(),
       title: "My Second Blog post 💕",
       content: "This is the content of my Second blog post. 🤖",
-      userId: "2",
+      userId: "xToAtCaZq2-sHu73VH09w",
       reaction: {
         thumbsUp: 0,
         hooray: 0,
@@ -51,6 +51,13 @@ const blogsSlice = createSlice({
             title,
             content,
             userId: authorId,
+            reaction: {
+              thumbsUp: 0,
+              hooray: 0,
+              heart: 0,
+              rocket: 0,
+              eyes: 0,
+            }
           },
         };
       },
