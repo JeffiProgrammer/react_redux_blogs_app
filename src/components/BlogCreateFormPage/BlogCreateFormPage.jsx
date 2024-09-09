@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { blogAdded } from "../../redux/reducers/blogs/blogsSlice";
+import { addNewBlogApi } from "../../redux/reducers/blogs/blogsSlice";
 import { selectAllUsers } from "../../redux/reducers/users/usersSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 const BlogCreateFormPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [authorId, setAuthorId] = useState("");
 
+  // create request status for check if one user is creating another one can not create blog
+  const [createRequestStatus, setCreateRequestStatus] = useState("idle");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const users = useSelector(selectAllUsers)
+  // Get all users from store
+  const users = useSelector(selectAllUsers);
 
   // Handle form change envents
   const handleTitleChange = (e) => {
@@ -26,16 +30,39 @@ const BlogCreateFormPage = () => {
   };
 
   // Check if all fields are filled for create button be enabled
-  const canSave = [title, content, authorId].every(Boolean);
+  const canSave =
+    [title, content, authorId].every(Boolean) && createRequestStatus === "idle";
 
   // Handle form submit
-  const handleSubmitForm = () => {
+  const handleSubmitForm = async () => {
     if (canSave) {
-      dispatch(blogAdded(title, content));
-      setTitle("");
-      setContent("");
-      setAuthorId("");
-      navigate("/");
+      setCreateRequestStatus("pending");
+      try {
+        await dispatch(
+          addNewBlogApi({
+            id: nanoid(),
+            date: new Date().toISOString(),
+            title,
+            content,
+            userId: authorId,
+            reaction: {
+              thumbsUp: 0,
+              hooray: 0,
+              heart: 0,
+              rocket: 0,
+              eyes: 0,
+            },
+          })
+        );
+        setTitle("");
+        setContent("");
+        setAuthorId("");
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setCreateRequestStatus("idle");
+      }
     }
   };
 
@@ -81,7 +108,11 @@ const BlogCreateFormPage = () => {
             </div>
           </form>
           <div className="buttons_holder">
-            <button type="button" onClick={handleSubmitForm} disabled={!canSave}>
+            <button
+              type="button"
+              onClick={handleSubmitForm}
+              disabled={!canSave}
+            >
               Create Blog
             </button>
             <Link to={`/`} className="back-btn">

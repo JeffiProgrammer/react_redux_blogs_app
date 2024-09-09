@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  blogDeleted,
+  deleteBlogApi,
   selectBlogById,
 } from "../../redux/reducers/blogs/blogsSlice";
 import ShowTime from "../ShowTime/ShowTime";
@@ -10,7 +10,7 @@ import ReactionButtons from "../ReactionButtons/ReactionButtons";
 
 const BlogPage = () => {
   const { blogId } = useParams();
-
+  const navigate = useNavigate();
   const blog = useSelector((state) => selectBlogById(state, blogId));
   const dispatch = useDispatch();
 
@@ -26,6 +26,13 @@ const BlogPage = () => {
       </section>
     );
   }
+
+  // Handle delete blog
+  const handleDeleteBlog = () => {
+    dispatch(deleteBlogApi(blog.id));
+    navigate("/");
+  };
+
   return (
     <section className="blog-content">
       <div className="container">
@@ -40,14 +47,18 @@ const BlogPage = () => {
           <Link
             to={`/blogs/${blogId}/edit`}
             className="back-btn"
-            style={{ marginRight: "10px" }}
+            style={{ marginRight: "10px", backgroundColor: "green" }}
           >
             Edit Blog
           </Link>
           <sapn
             className={"back-btn"}
-            style={{ marginRight: "10px" }}
-            onClick={() => dispatch(blogDeleted({ id: blogId }))}
+            style={{
+              marginRight: "10px",
+              cursor: "pointer",
+              backgroundColor: "red",
+            }}
+            onClick={handleDeleteBlog}
           >
             Delete Blog
           </sapn>
